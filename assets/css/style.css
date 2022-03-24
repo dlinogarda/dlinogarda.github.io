@@ -267,6 +267,69 @@ section {
 .section-title {
   padding-bottom: 30px;
 }
+
+.section-title a {
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  color: #173b6c;
+  display: inline;
+  /*background-color: #c5ff3e;*/
+}
+.section-title .btn {
+  font-size: 20px;
+  top: -7px;
+  font-weight: bold;
+  position: relative;
+  color: #173b6c;
+  display: inline;
+  /*background-color: #c5ff3e;*/
+}
+/*.section-title .btn:hover {
+  border: 2px solid #4CAF50;
+}*/
+.btn {
+  display: inline-block;
+  border-radius: 5px;
+  /*background-color: #f4511e;*/
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.btn:hover span {
+  padding-right: 25px;
+}
+
+.btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+
 .section-title h2 {
   font-size: 32px;
   font-weight: bold;
@@ -274,6 +337,7 @@ section {
   padding-bottom: 20px;
   position: relative;
   color: #173b6c;
+  display: inline;
 }
 .section-title h2::after {
   content: "";
@@ -288,6 +352,19 @@ section {
 .section-title p {
   margin-bottom: 0;
 }
+
+/*--------------------------------------------------------------
+# Column of Sections General
+--------------------------------------------------------------*/
+
+/* ini sextion a nya kok hilang? Gak ngerti, gak harus ono kok wkwk.
+sakjane kan ngene...
+gak ono sing berubah.. hhhahaha
+Jos lah hahah
+iki lek misale tombol e tak geser ke samping e about sama aja kan ya
+JOOOOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  Miming tien cien
+:D
+*/
 
 /*--------------------------------------------------------------
 # About
