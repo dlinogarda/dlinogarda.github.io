@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
+
 .back-to-top {
   position: fixed;
   visibility: hidden;
@@ -55,6 +56,63 @@ h1, h2, h3, h4, h5, h6 {
 .back-to-top.active {
   visibility: visible;
   opacity: 1;
+}
+
+/*--------------------------------------------------------------
+# Profile BRIN button
+--------------------------------------------------------------*/
+
+@keyframes brinPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+.brin-profile-btn {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #173b6c;
+  background: transparent;
+  border: 2px solid #149ddd;
+  border-radius: 6px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.35s ease,
+              background 0.35s ease,
+              border-color 0.35s ease,
+              transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.35s ease;
+  animation: brinPulse 2.8s ease-in-out infinite;
+}
+
+.brin-profile-btn i {
+  font-size: 12px;
+  transition: transform 0.35s ease;
+}
+
+.brin-profile-btn:hover {
+  color: #fff;
+  background: #149ddd;
+  border-color: #149ddd;
+  transform: scale(1.08);
+  box-shadow: 0 4px 18px rgba(20, 157, 221, 0.4);
+  text-decoration: none;
+  animation: none;
+}
+
+.brin-profile-btn:hover i {
+  transform: translate(2px, -2px);
+}
+
+.brin-profile-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(20, 157, 221, 0.3);
 }
 
 /*--------------------------------------------------------------
