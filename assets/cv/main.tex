@@ -28,6 +28,8 @@
 \usepackage{ragged2e}
 \usepackage{rotating}
 \usepackage{academicons}
+\usepackage{graphicx}
+\usepackage[absolute,overlay]{textpos}
 % take care of proper font encoding
 \ifxetex
 	\usepackage{fontspec}
@@ -392,7 +394,7 @@ During Lino's studies from 2014 - 2022, He has attended many local and internati
 	\cvitem{2014 -- 2015}{Supervisor at Kost Quran SDM-IPTEK, Surabaya Indonesia}{}{}\\
 	\cvitem{2012 -- 2014}{Department of Ristek FTSP ITS, Surabaya Indonesia}{}{}
 \end{cvtable}
-
+\vspace{1.5em}
 \cvsection{Publications}
 \begin{cvtable}
 	
@@ -424,7 +426,7 @@ During Lino's studies from 2014 - 2022, He has attended many local and internati
 	\href{https://www.spiedigitallibrary.org/journals/journal-of-applied-remote-sensing/volume-12/issue-4/045002/Pseudoinvariant-feature-selection-for-cross-sensor-optical-satellite-images/10.1117/1.JRS.12.045002.full?SSO=1}{\textit{Pseudoinvariant feature selection for cross-sensor optical satellite images}}
     }
 \end{cvtable}
-
+\vspace{1.5em}
 \cvsection{Conferences}
 \begin{cvtable}
 	\cvitem{$23-24^{th}$ Jul 2025}{Geomatics International Conference (GeoIcon), Indonesia}{}{}\\
@@ -437,7 +439,16 @@ During Lino's studies from 2014 - 2022, He has attended many local and internati
 	\cvitem{$07-10^{th}$ Aug 2018}{International conference of SG37, Taiwan}{}{}\\
 	\cvitem{$31-01^{th}$ Oct 2017}{International Conference of Indonesia Society for Remote Sensing (ICOIRS), Indonesia}{}{}\\
 	\cvitem{$05-07^{th}$ Des 2016}{International Symposium on GNSS (ISGNSS), Taiwan}{}{}\\
-	\cvitem{$12-15^{th}$ Jul 2016}{International conference of SG36, Taiwan}{}{}
+	\cvitem{$12-15^{th}$ Jul 2016}{International conference of SG36, Taiwan}{}{} 
 \end{cvtable}
+
 \cvsignature
+% --- QR Code for the Last Page ---
+% {2.5cm} is the width of the block
+% (17cm, 25.5cm) are the X and Y coordinates from the top-left corner
+\begin{textblock*}{2.5cm}(17cm,25.8cm) 
+	\includegraphics[width=3cm]{BRINQRcode.png}
+\end{textblock*}
+
+
 \end{document} 
