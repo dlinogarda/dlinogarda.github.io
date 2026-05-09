@@ -62,6 +62,32 @@ h1, h2, h3, h4, h5, h6 {
 # Profile BRIN button
 --------------------------------------------------------------*/
 .brin-qr-hover {
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brin-qr-hover:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.brin-profile-btn {
+  font-size: 22px;
+}
+
+@media (max-width: 768px) {
+  .brin-qr-hover {
+    width: 150px !important;
+  }
+
+  .brin-profile-btn {
+    font-size: 16px;
+    padding: 8px 14px;
+  }
+}
+
+.brin-qr-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -90,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brin-profile-btn i {
-  font-size: 12px;
+  font-size: 22px;
   transition: transform 0.35s ease;
 }
 
