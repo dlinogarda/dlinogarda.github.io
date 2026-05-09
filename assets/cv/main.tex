@@ -446,9 +446,10 @@ During Lino's studies from 2014 - 2022, He has attended many local and internati
 % --- QR Code for the Last Page ---
 % {2.5cm} is the width of the block
 % (17cm, 25.5cm) are the X and Y coordinates from the top-left corner
-\begin{textblock*}{2.5cm}(17cm,25cm) 
-	\includegraphics[width=3cm]{BRINQRcode.png}
+\begin{textblock*}{2.5cm}(17cm,25cm) % Adjusted height to 24.5cm to account for text
+	\centering
+	{\Large\textbf{BRIN Profile}}\\[0.2cm] % This adds the text and a 0.2cm gap; Changed \small to \Large for bigger text
+	\includegraphics[width=2.5cm]{BRINQRcode.png}
 \end{textblock*}
-
 
 \end{document} 
