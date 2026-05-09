@@ -61,6 +61,14 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Profile BRIN button
 --------------------------------------------------------------*/
+.brin-qr-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.brin-qr-hover:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
 
 .brin-profile-btn {
   display: block;
