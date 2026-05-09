@@ -341,6 +341,15 @@ section {
   transform: scale(1.15);
   text-decoration: none;
 }
+#DownloadCV .section-title .btn {
+  width: auto;
+  white-space: nowrap;
+  padding: 0;
+}
+#DownloadCV .section-title .btn h2 {
+  white-space: nowrap;
+  display: inline-block;
+}
 .btn {
   display: inline-block;
   border-radius: 5px;
