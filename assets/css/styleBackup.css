@@ -475,7 +475,7 @@ section {
   float: right;
   margin: 0;
 }
-/*
+
 .dashboard-btn {
   display: inline-block;
   padding: 10px 20px;
@@ -486,55 +486,30 @@ section {
   text-decoration: none;
   font-size: 32px;
   font-weight: 700;
-  transform: none !important;
-}
-*/
-.dashboard-btn {
-  display: inline-block;
-  padding: 0 20px;
-  outline: 2px solid #173b6c;
-  border-radius: 10px;
-  background: white;
-  color: #173b6c;
-  transform: none !important;
+  transition: transform 0.3s ease,
+              background-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
-.dashboard-btn span {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-
-.dashboard-btn:hover span {
-  transform: scale(1.15);
-}
-/*
 .dashboard-btn:hover {
   transform: scale(1.08);
   background-color: #173b6c;
   color: white;
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
-*/
 
 /*--------------------------------------------------------------
 # Column of Sections General
 --------------------------------------------------------------*/
-.nav-menu a[href="https://pro.dlinogarda.com/"] {
-  transition: transform 0.3s ease, color 0.3s ease;
-}
 
-.nav-menu a[href="https://pro.dlinogarda.com/"]:hover {
-  transform: scale(1.08);
-  color: #fff;
-}
-
-.nav-menu a[href="https://pro.dlinogarda.com/"]:hover i {
-  color: #149ddd;
-}
-
-.nav-menu a[href="https://pro.dlinogarda.com/"]:hover {
-  transform: translateX(8px) scale(1.08);
-}
+/* ini sextion a nya kok hilang? Gak ngerti, gak harus ono kok wkwk.
+sakjane kan ngene...
+gak ono sing berubah.. hhhahaha
+Jos lah hahah
+iki lek misale tombol e tak geser ke samping e about sama aja kan ya
+JOOOOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS  Miming tien cien
+:D
+*/
 
 /*--------------------------------------------------------------
 # About
