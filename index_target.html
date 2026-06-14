@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lino Garda Denaro, Ph.D — Remote Sensing & AI Researcher</title>
+<meta name="description" content="Lino Garda Denaro — remote sensing and artificial intelligence researcher at BRIN Indonesia. Publications, research, blog and news.">
+<link rel="icon" href="https://dlinogarda.github.io/assets/img/L.png">
+<script>/* apply cached theme before first paint to avoid flash */
+try{if(localStorage.getItem('lgd-theme')==='light')document.documentElement.classList.add('light');}catch(e){}</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   ORBITAL CV — design tokens
+   Palette: orbital night navy, sensor teal, sun-glint amber,
+   false-color rose. Spectral gradient reserved for the
+   hero scanline + small signal details only.
+   ============================================================ */
+:root{
+  --ink:#0A1422;
+  --ink-2:#0C1828;
+  --panel:#10203496;
+  --panel-solid:#102034;
+  --panel-2:#142840;
+  --line:rgba(150,184,219,.16);
+  --line-soft:rgba(150,184,219,.09);
+  --text:#E9F1F9;
+  --muted:#9AB0C4;
+  --faint:#5E7490;
+  --accent:#5BE3C7;
+  --accent-ink:#062A24;
+  --amber:#F7B955;
+  --rose:#F0699B;
+  --spec:linear-gradient(90deg,#53E0C4 0%,#8BE38B 35%,#F7B955 70%,#F0699B 100%);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-spring:cubic-bezier(.34,1.45,.45,1);
+  --dur:.75s;
+  --sidebar:300px;
+  --radius:14px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:"Public Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:16.5px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:rgba(91,227,199,.28)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+h1,h2,h3,.display{
+  font-family:"Bricolage Grotesque","Public Sans",sans-serif;
+  letter-spacing:-.015em;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+/* ---------- scroll progress (spectral hairline) ---------- */
+#progress{
+  position:fixed;top:0;left:0;height:3px;width:100%;
+  background:var(--spec);
+  transform-origin:0 50%;transform:scaleX(0);
+  z-index:200;
+}
+
+/* ---------- direction-aware reveal system ----------------
+   Scrolling DOWN  -> elements rise up into place.
+   Scrolling UP    -> elements settle down into place.
+   Elements re-arm when they leave the viewport, so the page
+   feels alive in both directions.                            */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(var(--ry,30px)) scale(var(--rs,1));
+  transition:opacity var(--dur) var(--ease),transform var(--dur) var(--ease);
+  transition-delay:var(--d,0s);
+  will-change:opacity,transform;
+}
+html.dir-up [data-reveal]{--ry:-30px}
+[data-reveal].in{opacity:1;transform:translateY(0) scale(1)}
+[data-reveal="zoom"]{--rs:.96}
+
+/* ---------- sidebar ---------- */
+#sidebar{
+  position:fixed;inset:0 auto 0 0;width:var(--sidebar);
+  background:linear-gradient(180deg,#0C1A2D 0%,#0A1422 100%);
+  border-right:1px solid var(--line-soft);
+  display:flex;flex-direction:column;
+  padding:34px 26px 22px;
+  z-index:100;
+  transition:transform .55s var(--ease);
+  overflow-y:auto;scrollbar-width:thin;
+}
+.profile{text-align:center;margin-bottom:22px}
+.profile .avatar-ring{
+  width:118px;height:118px;margin:0 auto 14px;border-radius:50%;
+  padding:4px;position:relative;
+  background:conic-gradient(from var(--av,0deg),#53E0C4,#8BE38B,#F7B955,#F0699B,#53E0C4);
+}
+.profile .avatar-ring img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;
+  border:4px solid var(--ink);
+}
+.profile h1{font-size:1.28rem;font-weight:800;line-height:1.25}
+.profile h1 a{color:var(--text)}
+.profile .role{font-size:.72rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:5px}
+
+.socials{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
+.socials a i{font-size:1.05rem;line-height:1}
+.socials a{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.04em;
+  color:var(--muted);border:1px solid var(--line);border-radius:999px;
+  padding:4px 10px;transition:all .35s var(--ease);
+}
+.socials a:hover{color:var(--accent-ink);background:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+
+/* nav with sliding indicator + orbit track */
+#nav{position:relative;margin-top:8px;flex:1}
+#nav .track{
+  position:absolute;left:9px;top:6px;bottom:6px;width:2px;
+  background:var(--line-soft);border-radius:2px;overflow:hidden;
+}
+#nav .track i{
+  position:absolute;left:0;top:0;width:100%;height:100%;
+  background:linear-gradient(180deg,#53E0C4,#8BE38B 35%,#F7B955 70%,#F0699B);
+  transform-origin:top;transform:scaleY(var(--np,0));
+  display:block;
+}
+#nav ul{list-style:none;position:relative}
+#nav .pill{
+  position:absolute;left:22px;right:0;height:42px;border-radius:10px;
+  background:rgba(91,227,199,.10);border:1px solid rgba(91,227,199,.22);
+  top:0;opacity:0;
+  transition:top .5s var(--ease-spring),opacity .4s var(--ease);
+  pointer-events:none;
+}
+#nav a{
+  position:relative;display:flex;align-items:center;gap:10px;
+  height:42px;padding:0 12px 0 30px;border-radius:10px;
+  color:var(--muted);font-size:.92rem;font-weight:500;
+  transition:color .3s var(--ease),transform .3s var(--ease);
+  z-index:1;
+}
+#nav a .dot{
+  position:absolute;left:5px;width:10px;height:10px;border-radius:50%;
+  border:2px solid var(--line);background:var(--ink);
+  transition:all .35s var(--ease);
+}
+#nav a:hover{color:var(--text);transform:translateX(4px)}
+#nav a.active{color:var(--accent)}
+#nav a.active .dot{border-color:var(--accent);background:var(--accent);box-shadow:0 0 12px rgba(91,227,199,.7)}
+#nav a .new{
+  font-family:"IBM Plex Mono",monospace;font-size:.58rem;letter-spacing:.1em;
+  color:var(--amber);border:1px solid rgba(247,185,85,.45);border-radius:999px;
+  padding:1px 7px;margin-left:auto;
+}
+
+.cv-btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  margin-top:14px;padding:13px;border-radius:12px;
+  font-weight:600;font-size:.92rem;color:var(--accent-ink);
+  background:var(--accent);
+  position:relative;overflow:hidden;
+  transition:transform .35s var(--ease-spring),box-shadow .35s var(--ease);
+}
+.cv-btn::after{
+  content:"";position:absolute;inset:0;background:var(--spec);
+  opacity:0;transition:opacity .4s var(--ease);
+}
+.cv-btn span{position:relative;z-index:1}
+.cv-btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(91,227,199,.55)}
+.cv-btn:hover::after{opacity:.9}
+.side-foot{margin-top:16px;text-align:center;font-size:.66rem;color:var(--faint);font-family:"IBM Plex Mono",monospace}
+
+/* ---------- mobile topbar ---------- */
+#topbar{
+  display:none;position:fixed;top:0;left:0;right:0;height:60px;z-index:110;
+  background:rgba(10,20,34,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+  align-items:center;justify-content:space-between;padding:0 18px;
+}
+#topbar .brand{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.02rem;color:var(--text)}
+#topbar .brand em{color:var(--accent);font-style:normal}
+#burger{
+  width:42px;height:42px;border:1px solid var(--line);border-radius:10px;
+  background:none;cursor:pointer;display:grid;place-items:center;gap:0;
+}
+#burger b{display:block;width:18px;height:2px;background:var(--text);margin:2.5px 0;border-radius:2px;transition:.35s var(--ease)}
+body.menu-open #burger b:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.menu-open #burger b:nth-child(2){opacity:0}
+body.menu-open #burger b:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- main layout ---------- */
+main{margin-left:var(--sidebar)}
+.wrap{max-width:1020px;margin:0 auto;padding:0 44px}
+section.block{padding:108px 0 30px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:12px;
+}
+.eyebrow::after{content:"";height:1px;width:54px;background:var(--spec)}
+.block h2.title{font-size:clamp(1.9rem,3.2vw,2.6rem);font-weight:800;margin:12px 0 8px}
+.lede{color:var(--muted);max-width:640px}
+
+/* ---------- HERO ---------- */
+#hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  overflow:hidden;
+}
+#orbits{position:absolute;inset:0;width:100%;height:100%}
+#heroPhoto{
+  position:absolute;inset:0;pointer-events:none;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+@media (max-width:920px){
+  /* portrait phone screens crop a landscape photo hard on the sides;
+     anchor to top-center so the main subject stays visible */
+  #heroPhoto{background-position:center top}
+}
+#hero .veil{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(900px 480px at 78% 18%,rgba(91,227,199,.07),transparent 60%),
+    linear-gradient(180deg,transparent 55%,var(--ink) 96%);
+  pointer-events:none;
+}
+#hero .wrap{position:relative;z-index:2;padding-top:40px;padding-bottom:60px}
+.coords{
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--muted);
+  letter-spacing:.12em;display:flex;gap:18px;flex-wrap:wrap;
+}
+.coords b{color:var(--amber);font-weight:500}
+#hero h1{
+  font-size:clamp(2.7rem,5.6vw,4.6rem);font-weight:800;line-height:1.04;
+  margin:20px 0 8px;letter-spacing:-.025em;
+}
+#hero h1 .ghost{
+  color:transparent;-webkit-text-stroke:1.5px rgba(150,184,219,.4);
+}
+.degree{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:.85rem;letter-spacing:.08em}
+.typedline{
+  margin-top:26px;font-family:"IBM Plex Mono",monospace;font-size:1.02rem;color:var(--muted);
+}
+.typedline .typed{color:var(--accent)}
+.caret{display:inline-block;width:9px;height:1.15em;background:var(--accent);
+  vertical-align:text-bottom;margin-left:3px;animation:blink 1.05s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:12px;
+  font-weight:600;font-size:.94rem;cursor:pointer;border:1px solid transparent;
+  transition:transform .35s var(--ease-spring),box-shadow .35s var(--ease),background .35s,color .35s,border-color .35s;
+  will-change:transform;
+}
+.btn-solid{background:var(--accent);color:var(--accent-ink)}
+.btn-solid:hover{box-shadow:0 16px 34px -12px rgba(91,227,199,.55)}
+.btn-ghost{border-color:var(--line);color:var(--text);background:rgba(16,32,52,.45)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-meta{
+  margin-top:64px;display:flex;gap:38px;flex-wrap:wrap;
+}
+.hero-meta .m{border-left:1px solid var(--line);padding-left:16px}
+.hero-meta .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.7rem;color:var(--text)}
+.hero-meta .n em{color:var(--accent);font-style:normal}
+.hero-meta .l{font-size:.72rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.scroll-hint{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
+}
+.scroll-hint .wheel{width:1px;height:42px;background:var(--line);position:relative;overflow:hidden}
+.scroll-hint .wheel::after{
+  content:"";position:absolute;left:0;top:-40%;width:100%;height:40%;
+  background:var(--accent);animation:drip 1.9s var(--ease) infinite;
+}
+@keyframes drip{0%{top:-40%}60%,100%{top:110%}}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:280px 1fr;gap:44px;margin-top:36px;align-items:start}
+.about-photo{position:relative}
+.about-photo .frame{
+  border-radius:var(--radius);overflow:hidden;position:relative;
+  border:1px solid var(--line);
+  transform:perspective(900px) rotateX(var(--tx,0)) rotateY(var(--ty,0));
+  transition:transform .5s var(--ease);
+}
+.about-photo .frame::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 70%,rgba(10,20,34,.7));
+}
+.about-photo .scan{
+  position:absolute;left:0;right:0;height:2px;background:var(--spec);
+  top:0;opacity:0;filter:blur(.4px);
+  box-shadow:0 0 18px rgba(91,227,199,.7);
+}
+.about-photo.in .scan{animation:photoscan 3.6s var(--ease) .3s infinite}
+@keyframes photoscan{0%{top:2%;opacity:0}8%{opacity:.95}50%{top:97%;opacity:.95}58%{opacity:0}100%{top:97%;opacity:0}}
+.brin-link{
+  margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--text);
+  font-size:.84rem;transition:all .35s var(--ease);
+}
+.brin-link:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-2px)}
+.qr-box{margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);padding:16px 14px;text-align:center;background:var(--panel)}
+.qr-box a{display:inline-block}
+.qr-box img{display:block;width:150px;height:150px;margin:0 auto 10px;border-radius:10px;border:5px solid #E9F1F9;background:#E9F1F9;cursor:pointer;transition:transform .25s var(--ease)}
+.qr-box a:hover img{transform:scale(1.05)}
+.qr-box .cap{font-family:"IBM Plex Mono",monospace;font-size:.6rem;color:var(--muted);letter-spacing:.16em;text-transform:uppercase}
+.about-copy h3{font-size:1.35rem;font-weight:700;margin-bottom:14px}
+.about-copy p{color:var(--muted);margin-bottom:14px}
+.about-copy p b{color:var(--text);font-weight:600}
+.fact-row{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin-top:22px}
+.fact-row .f{display:flex;gap:10px;font-size:.9rem;align-items:baseline;border-top:1px solid var(--line-soft);padding-top:10px}
+.fact-row .f .k{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.fact-row .f .v,.fact-row .f a{color:var(--text)}
+.fact-row .f a:hover{color:var(--accent)}
+
+/* ---------- BLOG / NEWS ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 6px}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.08em;
+  border:1px solid var(--line);border-radius:999px;padding:7px 15px;cursor:pointer;
+  color:var(--muted);background:none;transition:all .3s var(--ease);
+}
+.chip:hover{color:var(--text);border-color:var(--accent)}
+.chip.active{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:24px}
+.post{
+  grid-column:span 1;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--panel);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .5s var(--ease-spring),border-color .4s var(--ease),box-shadow .5s var(--ease);
+  cursor:pointer;position:relative;
+}
+.post:hover{transform:translateY(-7px);border-color:rgba(91,227,199,.5);box-shadow:0 26px 50px -28px rgba(0,0,0,.85)}
+.post.featured{grid-column:span 2;flex-direction:row}
+.post .art{
+  height:128px;position:relative;overflow:hidden;flex:none;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 23px,rgba(233,241,249,.05) 23px 24px),
+    repeating-linear-gradient(0deg,transparent 0 23px,rgba(233,241,249,.05) 23px 24px),
+    var(--art,linear-gradient(120deg,#0F2A3F,#143A4A));
+}
+.post.featured .art{width:42%;height:auto;min-height:210px}
+.post .art::after{
+  content:attr(data-band);position:absolute;left:14px;bottom:10px;
+  font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.18em;
+  color:rgba(233,241,249,.65);text-transform:uppercase;
+}
+.post .art .sweep{
+  position:absolute;top:0;bottom:0;width:34%;left:-40%;
+  background:linear-gradient(100deg,transparent,rgba(91,227,199,.16),transparent);
+  transition:left 1.1s var(--ease);
+}
+.post:hover .art .sweep{left:115%}
+.post .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1}
+.post .meta{
+  display:flex;gap:14px;align-items:center;
+  font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.1em;color:var(--muted);
+  text-transform:uppercase;
+}
+.post .meta .cat{color:var(--amber)}
+.post h3{font-size:1.13rem;font-weight:700;line-height:1.35;margin:10px 0 8px;transition:color .3s var(--ease)}
+.post.featured h3{font-size:1.45rem}
+.post:hover h3{color:var(--accent)}
+.post p{color:var(--muted);font-size:.92rem;flex:1}
+.post .more{
+  margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.14em;
+  color:var(--accent);display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;
+}
+.post .more i{transition:transform .35s var(--ease-spring);font-style:normal}
+.post:hover .more i{transform:translateX(7px)}
+.posts-note{
+  margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--faint);
+}
+
+/* ---------- SKILLS ---------- */
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:34px}
+.skill-card{
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);
+  padding:24px 24px 22px;transition:transform .45s var(--ease-spring),border-color .4s;
+}
+.skill-card:hover{transform:translateY(-5px);border-color:rgba(91,227,199,.45)}
+.skill-card h3{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.skill-card h3 .idx{font-family:"IBM Plex Mono",monospace;font-size:.62rem;color:var(--amber);letter-spacing:.12em}
+.skill-card p{color:var(--muted);font-size:.88rem;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:7px}
+.tags span{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--muted);
+  border:1px solid var(--line-soft);border-radius:7px;padding:4px 9px;
+  transition:all .3s var(--ease);
+}
+.skill-card:hover .tags span{border-color:var(--line)}
+.tags span:hover{color:var(--accent);border-color:var(--accent)}
+.meter{height:4px;background:var(--line-soft);border-radius:4px;overflow:hidden;margin-top:16px}
+.meter i{
+  display:block;height:100%;background:var(--spec);border-radius:4px;
+  transform-origin:left;transform:scaleX(0);transition:transform 1.3s var(--ease) .2s;
+}
+.skill-card.in .meter i{transform:scaleX(var(--w,.8))}
+
+/* ---------- RESUME timeline ---------- */
+.resume-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;margin-top:38px}
+.timeline{position:relative;padding-left:30px}
+.timeline::before{
+  content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;
+  background:var(--line-soft);
+}
+.timeline .grow{
+  position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--spec);
+  transform-origin:top;transform:scaleY(var(--tp,0));
+}
+.tl-head{font-size:1.15rem;font-weight:700;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.titem{position:relative;padding:0 0 30px 8px}
+.titem::before{
+  content:"";position:absolute;left:-27px;top:7px;width:12px;height:12px;border-radius:50%;
+  background:var(--ink);border:2px solid var(--line);
+  transition:all .4s var(--ease);
+}
+.titem.in::before{border-color:var(--accent);box-shadow:0 0 14px rgba(91,227,199,.55)}
+.titem h4{font-size:1.02rem;font-weight:700}
+.titem .when{
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--amber);
+  letter-spacing:.1em;margin:4px 0 5px;display:block;
+}
+.titem .where{color:var(--muted);font-size:.9rem}
+.titem .gpa{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--accent);margin-top:5px;display:block}
+
+/* ---------- RESEARCH ---------- */
+.counters{display:flex;gap:40px;flex-wrap:wrap;margin:30px 0 8px}
+.counters .c{border-left:1px solid var(--line);padding-left:16px}
+.counters .n{font-family:"Bricolage Grotesque";font-weight:800;font-size:2rem}
+.counters .n em{color:var(--accent);font-style:normal}
+.counters .l{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pubs{margin-top:26px;counter-reset:pub}
+.pub{
+  display:grid;grid-template-columns:74px 1fr auto;gap:20px;align-items:baseline;
+  padding:22px 6px;border-top:1px solid var(--line-soft);position:relative;
+  transition:background .35s var(--ease),padding .35s var(--ease);
+}
+.pub:last-child{border-bottom:1px solid var(--line-soft)}
+.pub::before{
+  counter-increment:pub -1;content:"[J" counter(pub) "]";
+  font-family:"IBM Plex Mono",monospace;color:var(--amber);font-size:.8rem;
+}
+.pub:hover{background:rgba(91,227,199,.045);padding-left:14px}
+.pub .venue{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.pub h3{font-size:1.05rem;font-weight:700;margin:4px 0 4px;line-height:1.4}
+.pub h3 a{color:var(--text);transition:color .3s}
+.pub h3 a:hover{color:var(--accent)}
+.pub .authors{color:var(--muted);font-size:.85rem}
+.pub .authors b{color:var(--text);font-weight:600}
+.pub .if{
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:4px 10px;white-space:nowrap;
+}
+.list-cols{margin-top:40px}
+.list-cols > div + div{margin-top:42px}
+.list-cols h3{font-size:1.12rem;font-weight:700;margin-bottom:16px}
+.plain li{
+  list-style:none;color:var(--muted);font-size:.9rem;padding:9px 0 9px 20px;position:relative;
+  border-top:1px solid var(--line-soft);transition:color .3s,padding-left .3s var(--ease);
+}
+.plain li::before{content:"›";position:absolute;left:2px;color:var(--accent)}
+.plain li:hover{color:var(--text);padding-left:26px}
+.confs li{padding-left:48px}
+.confs li::before{
+  content:"[C" counter(conf) "]";counter-increment:conf -1;left:0;
+  font-family:"IBM Plex Mono",monospace;color:var(--amber);font-size:.8rem;
+}
+.confs li:hover{padding-left:52px}
+
+/* ---------- AWARDS ---------- */
+.awards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.award{
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);
+  padding:22px;position:relative;overflow:hidden;
+  transition:transform .45s var(--ease-spring),border-color .4s;
+}
+.award::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--spec);
+  transform:scaleY(0);transform-origin:top;transition:transform .5s var(--ease);
+}
+.award:hover{transform:translateY(-5px);border-color:rgba(247,185,85,.45)}
+.award:hover::before{transform:scaleY(1)}
+.award .yr{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--amber);letter-spacing:.12em}
+.award p{font-size:.9rem;font-weight:600;margin-top:8px;line-height:1.45}
+
+/* ---------- CONTACT ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;margin-top:36px}
+.contact-card{
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:28px;
+}
+.crow{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.crow:last-child{border-bottom:none}
+.crow .k{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);min-width:74px}
+.crow .v,.crow a{color:var(--text);font-size:.93rem;word-break:break-word}
+.crow a:hover{color:var(--accent)}
+.map{
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-height:320px;
+  filter:saturate(.55) contrast(1.04);transition:filter .6s var(--ease);
+}
+.map:hover{filter:saturate(1)}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
+
+/* ---------- footer / back-to-top ---------- */
+footer{
+  border-top:1px solid var(--line-soft);margin-top:90px;padding:34px 0 110px;
+  color:var(--faint);font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+#totop{
+  position:fixed;right:26px;bottom:26px;width:50px;height:50px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(16,32,52,.8);backdrop-filter:blur(8px);
+  color:var(--accent);font-size:1.25rem;cursor:pointer;z-index:90;
+  opacity:0;pointer-events:none;transform:translateY(14px);
+  transition:opacity .4s var(--ease),transform .45s var(--ease-spring),border-color .3s;
+  display:grid;place-items:center;
+}
+#totop.show{opacity:1;pointer-events:auto;transform:none}
+#totop:hover{border-color:var(--accent)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .posts{grid-template-columns:1fr}
+  .post.featured{grid-column:span 1;flex-direction:column}
+  .post.featured .art{width:100%;min-height:128px}
+  .awards{grid-template-columns:1fr 1fr}
+}
+@media (max-width:920px){
+  /* allow grid/flex children in content sections to shrink below content size,
+     which is what stops long words/rows from forcing horizontal scroll */
+  main .wrap > *,.about-grid > *,.fact-row > *,.pub > *,.hero-inner > *{min-width:0}
+  #topbar{display:flex}
+  #sidebar{transform:translateX(-100%);box-shadow:30px 0 80px rgba(0,0,0,.5)}
+  body.menu-open #sidebar{transform:none}
+  main{margin-left:0}
+  .wrap{padding:0 22px}
+  section.block{padding:84px 0 16px}
+  #hero{padding-top:60px}
+  .about-grid,.resume-grid,.contact-grid,.skill-grid,.list-cols{grid-template-columns:1fr}
+  .about-photo{max-width:280px}
+  .fact-row{grid-template-columns:1fr;gap:0}
+  .about-copy{min-width:0}
+  .about-copy p,.about-copy h3{overflow-wrap:anywhere;word-break:normal}
+  .fact-row .f{flex-wrap:wrap}
+  .fact-row .f .v,.fact-row .f a{overflow-wrap:anywhere;min-width:0}
+  .pub{grid-template-columns:54px 1fr;row-gap:6px}
+  .pub .if{grid-column:2;justify-self:start}
+  .awards{grid-template-columns:1fr}
+  .hero-meta{gap:24px}
+}
+
+/* ---------- LIGHT THEME — daylight pass ----------
+   Toggled from /admin → Appearance. Variables override the
+   orbital-night palette; targeted rules fix hardcoded surfaces. */
+html.light{
+  --ink:#F2F6FA;
+  --ink-2:#E9F0F7;
+  --panel:#FFFFFFE0;
+  --panel-solid:#FFFFFF;
+  --panel-2:#EDF3F9;
+  --line:rgba(15,45,75,.16);
+  --line-soft:rgba(15,45,75,.08);
+  --text:#0E1B2C;
+  --muted:#44607C;
+  --faint:#8095AB;
+  --accent:#0B9D83;
+  --accent-ink:#FFFFFF;
+  --amber:#B8730E;
+  --rose:#CE3A70;
+}
+html.light ::selection{background:rgba(11,157,131,.22)}
+html.light #sidebar{background:linear-gradient(180deg,#FFFFFF 0%,#F2F6FA 100%)}
+html.light #topbar{background:rgba(242,246,250,.85)}
+html.light #totop{background:rgba(255,255,255,.88)}
+html.light .btn-ghost{background:rgba(255,255,255,.6)}
+html.light #hero h1 .ghost{-webkit-text-stroke:1.5px rgba(40,70,100,.45)}
+html.light #hero .veil{
+  background:
+    radial-gradient(900px 480px at 78% 18%,rgba(11,157,131,.07),transparent 60%),
+    linear-gradient(180deg,transparent 55%,var(--ink) 96%);
+}
+html.light .post:hover{box-shadow:0 26px 50px -28px rgba(30,60,90,.35)}
+html.light .cv-btn:hover{box-shadow:0 14px 30px -12px rgba(11,157,131,.45)}
+
+/* ---------- reduced motion: everything settles instantly ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  [data-reveal]{opacity:1!important;transform:none!important}
+  .skill-card .meter i{transform:scaleX(var(--w,.8))!important}
+  .timeline .grow{transform:scaleY(1)!important}
+  #nav .track i{transform:scaleY(1)!important}
+  .scroll-hint{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ======= Mobile topbar ======= -->
+<div id="topbar">
+  <a class="brand" href="#hero">LGD<em>.</em></a>
+  <button id="burger" aria-label="Open menu" aria-expanded="false"><b></b><b></b><b></b></button>
+</div>
+
+<!-- ======= Sidebar ======= -->
+<aside id="sidebar">
+  <div class="profile">
+    <div class="avatar-ring"><img src="https://dlinogarda.github.io/assets/img/linoicon.jpg" alt="Portrait of Lino Garda Denaro"></div>
+    <h1><a href="#hero">Lino Garda Denaro</a></h1>
+    <div class="role mono">Remote Sensing · AI · BRIN</div>
+    <div class="socials">
+      <a href="https://scholar.google.com/citations?user=NX8SDXUAAAAJ&hl=en&oi=ao" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>
+      <a href="https://orcid.org/0000-0001-5367-5392" title="ORCID"><i class="ai ai-orcid"></i></a>
+      <a href="https://www.scopus.com/authid/detail.uri?authorId=57204212045" title="Scopus"><i class="ai ai-scopus"></i></a>
+      <a href="https://www.webofscience.com/wos/author/rid/AAM-9080-2020" title="Web of Science"><i class="ai ai-clarivate"></i></a>
+      <a href="https://www.researchgate.net/profile/Lino-Denaro" title="ResearchGate"><i class="ai ai-researchgate-square"></i></a>
+      <a href="https://www.linkedin.com/in/lino-garda-denaro-ms-phd" title="LinkedIn"><i class="bx bxl-linkedin"></i></a>
+      <a href="https://github.com/dlinogarda" title="GitHub"><i class="bx bxl-github"></i></a>
+    </div>
+  </div>
+
+  <nav id="nav" aria-label="Main">
+    <div class="track" aria-hidden="true"><i></i></div>
+    <div class="pill" aria-hidden="true"></div>
+    <ul>
+      <li><a href="#hero" class="active"><span class="dot"></span>Home</a></li>
+      <li><a href="#about"><span class="dot"></span>About</a></li>
+      <li><a href="#blog"><span class="dot"></span>Blog / News<span class="new">NEW</span></a></li>
+      <li><a href="#skills"><span class="dot"></span>Skills</a></li>
+      <li><a href="#resume"><span class="dot"></span>Resume</a></li>
+      <li><a href="#research"><span class="dot"></span>Research</a></li>
+      <li><a href="#awards"><span class="dot"></span>Awards</a></li>
+      <li><a href="#contact"><span class="dot"></span>Contact</a></li>
+    </ul>
+  </nav>
+
+  <a class="cv-btn magnet" href="https://dlinogarda.github.io/assets/img/cv.pdf" target="_blank" rel="noopener"><span>⤓ Download CV</span></a>
+  <div class="side-foot">© <span id="yr"></span> LGD — dlinogarda.com</div>
+</aside>
+
+<main>
+
+  <!-- ======= HERO ======= -->
+  <section id="hero">
+    <canvas id="orbits" aria-hidden="true"></canvas>
+    <div class="veil" aria-hidden="true"></div>
+
+    <div class="wrap" id="heroInner">
+      <div class="coords mono" data-reveal>
+        <span><b>LAT</b> 6.8819° S</span><span><b>LON</b> 107.6086° E</span>
+        <span>BANDUNG · KST SAMAUN SAMADIKUN</span><span><b>SYS</b> ONLINE</span>
+      </div>
+
+      <h1 data-reveal style="--d:.08s">Lino Garda<br><span class="ghost">Denaro</span></h1>
+      <div class="degree" data-reveal style="--d:.16s">B.Eng · M.S · Ph.D — Associate Researcher, BRIN Indonesia</div>
+
+      <div class="typedline" data-reveal style="--d:.24s">&gt; focus: <span class="typed" id="typed"></span><span class="caret"></span></div>
+
+      <div class="hero-cta" data-reveal style="--d:.32s">
+        <a class="btn btn-solid magnet" href="#blog">Latest news ↗</a>
+        <a class="btn btn-ghost magnet" href="#research">Publications</a>
+        <a class="btn btn-ghost magnet" href="https://dlinogarda.github.io/assets/img/cv.pdf" target="_blank" rel="noopener">Download CV</a>
+      </div>
+
+      <div class="hero-meta" data-reveal style="--d:.4s">
+        <div class="m"><div class="n"><span data-count="9">0</span><em>+</em></div><div class="l">Journal papers</div></div>
+        <div class="m"><div class="n"><span data-count="11">0</span></div><div class="l">Int’l conferences</div></div>
+        <div class="m"><div class="n"><span data-count="10">0</span><em>y</em></div><div class="l">Research experience</div></div>
+        <div class="m"><div class="n"><span data-count="7">0</span></div><div class="l">Journals reviewed</div></div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true"><div class="wheel"></div><span>scroll</span></div>
+  </section>
+
+  <!-- ======= ABOUT ======= -->
+  <section id="about" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>01 · Profile</div>
+      <h2 class="title" data-reveal style="--d:.06s">About</h2>
+      <p class="lede" data-reveal style="--d:.12s">Researcher working where Earth observation meets machine intelligence — from radiometric normalization to spectral deep learning.</p>
+
+      <div class="about-grid">
+        <div class="about-photo" data-reveal="zoom" data-watch>
+          <div class="frame" id="tilt">
+            <img src="https://dlinogarda.github.io/assets/img/Lino_about.jpg" alt="Lino Garda Denaro">
+            <div class="scan" aria-hidden="true"></div>
+          </div>
+          <a class="brin-link" href="https://brin.go.id/orei/en/pusat-riset-geoinformatika/page/lino-garda-denaro-st-ms-phd" target="_blank" rel="noopener">↗ BRIN official profile</a>
+        </div>
+
+        <div class="about-copy" data-reveal style="--d:.1s">
+          <h3>Remote Sensing &amp; Artificial Intelligence Researcher</h3>
+          <p>Lino received his <b>B.Eng. in Geomatics Engineering</b> from Institut Teknologi Sepuluh Nopember (ITS) Surabaya, Indonesia (2011–2015), then earned scholarships in Taiwan for his <b>M.S. (2016–2018)</b> and <b>Ph.D. (2018–2022)</b> at National Cheng Kung University, graduating with seven papers.</p>
+          <p>He continued as a <b>Post-doctoral Fellow at National Taiwan University</b> and is now an <b>Associate Researcher at the National Research and Innovation Agency (BRIN)</b>, Indonesia, at the Research Center for Geoinformatics.</p>
+          <p>His research spans ocean color and inland water, land-cover change, air pollution and groundwater analysis, hyperspectral &amp; solar-induced fluorescence, atmospheric correction, digital image processing, deep learning, change detection, and Transformers.</p>
+
+          <div class="fact-row">
+            <div class="f"><span class="k">Role</span><span class="v">Assoc. Researcher — BRIN</span></div>
+            <div class="f"><span class="k">Base</span><span class="v">Bandung, Indonesia</span></div>
+            <div class="f"><span class="k">Mail 1</span><a href="mailto:dlinogarda@brin.go.id">dlinogarda@brin.go.id</a></div>
+            <div class="f"><span class="k">Mail 2</span><a href="mailto:dlinogarda@gmail.com">dlinogarda@gmail.com</a></div>
+            <div class="f"><span class="k">Lang</span><span class="v">EN · ID · JV · MS · ZH</span></div>
+            <div class="f"><span class="k">ORCID</span><a href="https://orcid.org/0000-0001-5367-5392" target="_blank" rel="noopener">0000-0001-5367-5392</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= BLOG / NEWS ======= -->
+  <section id="blog" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>02 · Dispatches</div>
+      <h2 class="title" data-reveal style="--d:.06s">Blog / News</h2>
+      <p class="lede" data-reveal style="--d:.12s">Research notes, paper announcements and lab news — downlinked here first.</p>
+
+      <div class="filters" data-reveal style="--d:.18s" role="tablist" aria-label="Filter posts">
+        <button class="chip active" data-filter="all">ALL</button>
+        <button class="chip" data-filter="news">NEWS</button>
+        <button class="chip" data-filter="research">RESEARCH NOTES</button>
+        <button class="chip" data-filter="publication">PUBLICATIONS</button>
+      </div>
+
+      <div class="posts" id="posts"><!-- rendered live from /api/posts --></div>
+      <div class="posts-note" style="display:flex;justify-content:flex-end">
+        <a href="post.html" style="color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase">View all posts →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= SKILLS ======= -->
+  <section id="skills" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>03 · Instrumentation</div>
+      <h2 class="title" data-reveal style="--d:.06s">Skills</h2>
+
+      <div class="skill-grid">
+        <div class="skill-card" data-reveal data-watch style="--w:.95">
+          <h3><span class="idx">BAND 01</span>Remote Sensing</h3>
+          <p>Change detection, land analysis, ocean color (Chl-a, TSS), air pollution (PM2.5/10), groundwater, hotspot mapping, hyperspectral &amp; SIF.</p>
+          <div class="tags"><span>Change detection</span><span>Ocean color</span><span>PM2.5/10</span><span>Hyperspectral</span><span>SIF</span><span>Atmospheric correction</span></div>
+          <div class="meter"><i></i></div>
+        </div>
+        <div class="skill-card" data-reveal data-watch style="--w:.92;--d:.08s">
+          <h3><span class="idx">BAND 02</span>Machine &amp; Deep Learning</h3>
+          <p>From dense networks to modern architectures for Earth observation pipelines.</p>
+          <div class="tags"><span>CNN</span><span>U-Net / Y-Net</span><span>ResNet / DenseNet</span><span>GNN</span><span>GAN</span><span>Transfer learning</span><span>Transformers</span></div>
+          <div class="meter"><i></i></div>
+        </div>
+        <div class="skill-card" data-reveal data-watch style="--w:.9;--d:.12s">
+          <h3><span class="idx">BAND 03</span>Digital Image Processing</h3>
+          <p>Histogram processing, frequency &amp; spatial filtering (Fourier), morphology, restoration, segmentation, feature extraction, pattern classification.</p>
+          <div class="tags"><span>Fourier filtering</span><span>Morphology</span><span>Segmentation</span><span>Feature extraction</span></div>
+          <div class="meter"><i></i></div>
+        </div>
+        <div class="skill-card" data-reveal data-watch style="--w:.88;--d:.16s">
+          <h3><span class="idx">BAND 04</span>Programming</h3>
+          <p>Daily drivers for research computing and geospatial automation.</p>
+          <div class="tags"><span>Python</span><span>MATLAB</span><span>R</span><span>C#</span><span>SQL</span><span>Java</span><span>JavaScript / GEE</span><span>LaTeX</span></div>
+          <div class="meter"><i></i></div>
+        </div>
+        <div class="skill-card" data-reveal data-watch style="--w:.86;--d:.2s">
+          <h3><span class="idx">BAND 05</span>Geospatial Software</h3>
+          <p>End-to-end EO toolchain, from preprocessing to cartographic output.</p>
+          <div class="tags"><span>SNAP / BEAM</span><span>ENVI</span><span>QGIS</span><span>ArcMap</span><span>Google Earth Engine</span></div>
+          <div class="meter"><i></i></div>
+        </div>
+        <div class="skill-card" data-reveal data-watch style="--w:.8;--d:.24s">
+          <h3><span class="idx">BAND 06</span>3D, Media &amp; Design</h3>
+          <p>Photogrammetry and visual communication for research outreach.</p>
+          <div class="tags"><span>Pix4D</span><span>Agisoft</span><span>AutoCAD</span><span>CloudCompare</span><span>Premiere Pro</span><span>Photoshop</span><span>CorelDRAW</span></div>
+          <div class="meter"><i></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= RESUME ======= -->
+  <section id="resume" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>04 · Trajectory</div>
+      <h2 class="title" data-reveal style="--d:.06s">Resume</h2>
+
+      <div class="resume-grid">
+        <div>
+          <div class="tl-head" data-reveal>🎓 Education</div>
+          <div class="timeline" data-timeline>
+            <div class="grow" aria-hidden="true"></div>
+            <div class="titem" data-reveal data-watch>
+              <h4>Doctorate Degree — Geomatics</h4><span class="when">2018 — 2022</span>
+              <div class="where">National Cheng Kung University, Taiwan</div><span class="gpa">GPA 3.9 / 4.0</span>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.06s">
+              <h4>Master Degree — Geomatics</h4><span class="when">2016 — 2018</span>
+              <div class="where">National Cheng Kung University, Taiwan</div><span class="gpa">GPA 3.9 / 4.0</span>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.12s">
+              <h4>Bachelor Degree — Geomatics Engineering</h4><span class="when">2011 — 2015</span>
+              <div class="where">Institut Teknologi Sepuluh Nopember (ITS), Indonesia</div><span class="gpa">GPA 3.38 / 4.0</span>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.18s">
+              <h4>High School — Natural Science</h4><span class="when">2008 — 2011</span>
+              <div class="where">SMAN 4 Kediri, Indonesia</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="tl-head" data-reveal>🛰️ Professional Experience</div>
+          <div class="timeline" data-timeline>
+            <div class="grow" aria-hidden="true"></div>
+            <div class="titem" data-reveal data-watch>
+              <h4>Associate Researcher</h4><span class="when">2024 — Present</span>
+              <div class="where">National Research and Innovation Agency (BRIN), Indonesia</div>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.06s">
+              <h4>Post-doctoral Fellow</h4><span class="when">2022 — 2025</span>
+              <div class="where">National Taiwan University (NTU), Taiwan</div>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.12s">
+              <h4>Guest Lecturer</h4><span class="when">Mar 2024</span>
+              <div class="where">National Cheng Kung University (NCKU), Tainan, Taiwan</div>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.18s">
+              <h4>Adjunct Lecturer — Geodesy</h4><span class="when">Mar 2022 — Jul 2023</span>
+              <div class="where">Diponegoro University (UNDIP), Indonesia</div>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.24s">
+              <h4>Guest Lecturer (Praktisi Mengajar, Kampus Merdeka)</h4><span class="when">Aug — Dec 2022</span>
+              <div class="where">Universitas Nusantara PGRI (UNP) Kediri, Indonesia</div>
+            </div>
+            <div class="titem" data-reveal data-watch style="--d:.3s">
+              <h4>Student Research Assistant</h4><span class="when">2016 — 2022</span>
+              <div class="where">Geo-AI Lab &amp; Digital Geometry Lab, NCKU, Taiwan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= RESEARCH ======= -->
+  <section id="research" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>05 · Signal Record</div>
+      <h2 class="title" data-reveal style="--d:.06s">Research</h2>
+
+      <div class="counters" data-reveal style="--d:.12s">
+        <div class="c"><div class="n"><span data-count="9">0</span></div><div class="l">Publications</div></div>
+        <div class="c"><div class="n"><span data-count="7">0</span></div><div class="l">Reviewer roles</div></div>
+        <div class="c"><div class="n"><span data-count="11">0</span></div><div class="l">Conferences</div></div>
+        <div class="c"><div class="n">IF <em><span data-count="8.1" data-dec="1">0</span></em></div><div class="l">Highest impact factor</div></div>
+      </div>
+
+      <div class="pubs" style="counter-reset:pub 10">
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">Int. J. Applied Earth Obs. &amp; Geoinf. · Jun 2026</div>
+            <h3><a href="https://ieeexplore.ieee.org/document/11505693" target="_blank" rel="noopener">Constrained harmonization of optical satellite imagery for surface reflectance bias removal</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, C.-H. Lin</div>
+          </div><span class="if">IF &gt; 3</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">Applied Spectroscopy Practica · Jun 2025</div>
+            <h3><a href="https://doi.org/10.1177/27551857251338287" target="_blank" rel="noopener">Spectroscopic assessment of flavor-related chemical compounds in fresh tea shoots using deep learning</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, S.-Y. Lin, C. Huang</div>
+          </div><span class="if">IF 2.2</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">Int. J. Applied Earth Obs. &amp; Geoinf. · May 2024</div>
+            <h3><a href="https://doi.org/10.1016/j.jag.2024.103842" target="_blank" rel="noopener">Reconstructing fresh green leaf spectra in the SWIR-2 region (2001–2500 nm) collected in a humid environment</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, H.-J. Li, J.-Y. Chong, C. Huang</div>
+          </div><span class="if">IF 7.5</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">IEEE JSTARS · Feb 2020</div>
+            <h3><a href="https://ieeexplore.ieee.org/abstract/document/9016141" target="_blank" rel="noopener">Hybrid canonical correlation analysis and regression for radiometric normalization of cross-sensor satellite imagery</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, C.-H. Lin</div>
+          </div><span class="if">IF 3.78</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">IEEE IGARSS · Jul 2019</div>
+            <h3><a href="https://ieeexplore.ieee.org/abstract/document/8900651" target="_blank" rel="noopener">Nonlinear relative radiometric normalization for Landsat 7 and Landsat 8 imagery</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, C.-H. Lin</div>
+          </div><span class="if">—</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">IEEE GRSL · Mar 2019</div>
+            <h3><a href="https://ieeexplore.ieee.org/abstract/document/8657354" target="_blank" rel="noopener">Pseudoinvariant feature selection using multitemporal MAD for optical satellite images</a></h3>
+            <div class="authors">B.-Y. Lin, Z.-J. Wang, M. A. Syariz, <b>L. G. Denaro</b>, C.-H. Lin</div>
+          </div><span class="if">IF 3.97</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">ISPRS Archives · Feb 2019</div>
+            <h3><a href="https://www.isprs.org/publications/archives.aspx" target="_blank" rel="noopener">Hybrid canonical correlation analysis and regression for radiometric normalization of cross-sensor satellite images</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, C.-H. Lin</div>
+          </div><span class="if">—</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">ISPRS J. Photogrammetry &amp; RS · Nov 2018</div>
+            <h3><a href="https://www.sciencedirect.com/science/article/abs/pii/S0924271618303034" target="_blank" rel="noopener">Spectral-consistent relative radiometric normalization for multitemporal Landsat 8 imagery</a></h3>
+            <div class="authors">M. A. Syariz, B.-Y. Lin, <b>L. G. Denaro</b>, L. M. Jaelani, M. V. Nguyen, C.-H. Lin</div>
+          </div><span class="if">IF 8.11</span>
+        </article>
+        <article class="pub" data-reveal data-watch>
+          <div>
+            <div class="venue">J. Applied Remote Sensing · Aug 2018 </div>
+            <h3><a href="https://www.spiedigitallibrary.org/journals/Journal-of-Applied-Remote-Sensing/volume-12/issue-4/045002/Pseudoinvariant-feature-selection-for-cross-sensor-optical-satellite-images/10.1117/1.JRS.12.045002.short?SSO=1" target="_blank" rel="noopener">Pseudoinvariant feature selection for cross-sensor optical satellite images</a></h3>
+            <div class="authors"><b>L. G. Denaro</b>, B.-Y. Lin, M. A. Syariz, L. M. Jaelani, C.-H. Lin</div>
+          </div><span class="if">IF 1.53</span>
+        </article>
+      </div>
+
+      <div class="list-cols">
+        <div data-reveal>
+          <h3>Reviewer for</h3>
+          <ul class="plain">
+            <li>IEEE JSTARS</li>
+            <li>IEEE Transactions on Geoscience and Remote Sensing</li>
+            <li>IEEE International Journal of Remote Sensing</li>
+            <li>Remote Sensing</li>
+            <li>Sustainability</li>
+            <li>Applied Sciences</li>
+            <li>Advances in Space Research</li>
+          </ul>
+        </div>
+        <div data-reveal style="--d:.08s">
+          <h3>International conferences</h3>
+          <ul class="plain confs" style="counter-reset:conf 8">
+            <li>GeoIcon — Indonesia, 2025</li>
+            <li>ACRS — Vietnam, 2021</li>
+            <li>PhilGeos / GeoAdvances ×2 — Philippines, 2019</li>
+            <li>ACRS — Korea, 2019 · ISRS — Taiwan, 2019</li>
+            <li>IEEE IGARSS — Japan, 2018 · SG37 — Taiwan, 2018</li>
+            <li>ICOIRS — Indonesia, 2017</li>
+            <li>ISGNSS — Taiwan, 2016 · SG36 — Taiwan, 2016</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= AWARDS ======= -->
+  <section id="awards" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>06 · Telemetry</div>
+      <h2 class="title" data-reveal style="--d:.06s">Award &amp; Achievement</h2>
+
+      <div class="awards">
+        <div class="award" data-reveal><span class="yr">2022 — 2025</span><p>Postdoctoral Researcher — NTU, NSTC Program, Taiwan</p></div>
+        <div class="award" data-reveal style="--d:.05s"><span class="yr">2018 — 2022</span><p>Ph.D. Distinguished Scholarship — NCKU, Taiwan</p></div>
+        <div class="award" data-reveal style="--d:.1s"><span class="yr">2018 — 2022</span><p>MOST Scholarship — Taiwan</p></div>
+        <div class="award" data-reveal style="--d:.15s"><span class="yr">2019</span><p>Invited Speaker — PhilGeos Conference, Philippines</p></div>
+        <div class="award" data-reveal style="--d:.2s"><span class="yr">2017</span><p>Best Presenter — ICOIRS, Indonesia</p></div>
+        <div class="award" data-reveal style="--d:.25s"><span class="yr">2016 — 2018</span><p>M.Sc. Distinguished Scholarship — NCKU, Taiwan</p></div>
+        <div class="award" data-reveal style="--d:.3s"><span class="yr">2016 — 2018</span><p>MOST Scholarship — Taiwan</p></div>
+        <div class="award" data-reveal style="--d:.35s"><span class="yr">2015</span><p>Analyst Surveyor License — Indonesian Surveyors Association</p></div>
+        <div class="award" data-reveal style="--d:.4s"><span class="yr">2013 — 2015</span><p>Van Deventer–Maas Scholarship (VDMS)</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTACT ======= -->
+  <section id="contact" class="block">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>07 · Downlink</div>
+      <h2 class="title" data-reveal style="--d:.06s">Contact</h2>
+
+      <div class="contact-grid">
+        <div class="contact-card" data-reveal>
+          <div class="crow"><span class="k">Base</span><span class="v">Bandung, Indonesia — BRIN KST Samaun Samadikun</span></div>
+          <div class="crow"><span class="k">Mail 1</span><a href="mailto:dlinogarda@brin.go.id">dlinogarda@brin.go.id</a></div>
+          <div class="crow"><span class="k">Mail 2</span><a href="mailto:dlinogarda@gmail.com">dlinogarda@gmail.com</a></div>
+          <div class="crow"><span class="k">Site</span><a href="https://dlinogarda.github.io">dlinogarda.com</a></div>
+          <div class="crow"><span class="k">CV</span><a href="https://dlinogarda.github.io/assets/img/cv.pdf" target="_blank" rel="noopener">Download PDF ⤓</a></div>
+        </div>
+        <div class="map" data-reveal="zoom" style="--d:.08s">
+          <iframe title="BRIN Bandung on Google Maps" loading="lazy" allowfullscreen
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.0725968644574!2d107.60860427480924!3d-6.881906793117005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e79c5139cd7d%3A0xf666262cf2998848!2sBRIN%20Bandung%20KST%20Samaun%20Samadikun!5e0!3m2!1sen!2sid!4v1754975865615!5m2!1sen!2sid"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="yr2"></span> Lino Garda Denaro — built for orbit.</span>
+      <span>LAT 6.88° S · LON 107.61° E · UTC+7</span>
+    </div>
+  </footer>
+</main>
+
+<button id="totop" aria-label="Back to top">↑</button>
+
+<script>
+/* ============================================================
+   ORBITAL CV — motion engine (zero dependencies)
+   ============================================================ */
+(function(){
+"use strict";
+const $=(s,c=document)=>c.querySelector(s);
+const $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* github.com/.../blob/... is an HTML page, not an image — convert to the raw file URL */
+const fixImgURL=u=>{u=String(u||'');const m=u.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/(.+)$/);return m?`https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}`:u;};
+const API_BASE=/\.github\.io$/.test(location.hostname)?'https://pro.dlinogarda.com':'';
+let bgMode='animation';
+let themeLight=document.documentElement.classList.contains('light');
+function applyTheme(t){
+  themeLight=(t==='light');
+  document.documentElement.classList.toggle('light',themeLight);
+  try{localStorage.setItem('lgd-theme',themeLight?'light':'dark');}catch(e){}
+}
+
+$('#yr').textContent=$('#yr2').textContent=new Date().getFullYear();
+
+/* ---------- 1. scroll direction (drives reveal direction) ---------- */
+let lastY=scrollY, dirUp=false;
+function trackDir(){
+  const y=scrollY, up=y<lastY-1, down=y>lastY+1;
+  if(up&&!dirUp){dirUp=true;document.documentElement.classList.add('dir-up');}
+  else if(down&&dirUp){dirUp=false;document.documentElement.classList.remove('dir-up');}
+  lastY=y;
+}
+
+/* ---------- 2. reveal observer (re-arms so it lives both ways) ---------- */
+const revealIO=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in');
+    else if(e.boundingClientRect.top>innerHeight||e.boundingClientRect.bottom<0)
+      e.target.classList.remove('in');           // fully gone → re-arm
+  });
+},{threshold:.12,rootMargin:'-4% 0px -4% 0px'});
+function observeReveals(scope=document){ $$('[data-reveal]',scope).forEach(el=>revealIO.observe(el)); }
+observeReveals();
+
+/* ---------- 3. nav spy + sliding pill + orbit track ---------- */
+const nav=$('#nav'), pill=$('.pill',nav), links=$$('a',nav), trackFill=$('.track i',nav);
+const sections=links.map(a=>$(a.getAttribute('href')));
+function setPill(link){
+  const nr=nav.getBoundingClientRect(), lr=link.getBoundingClientRect();
+  pill.style.top=(lr.top-nr.top)+'px'; pill.style.opacity=1;
+}
+const spyIO=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const link=links.find(a=>a.getAttribute('href')==='#'+e.target.id);
+    if(!link) return;
+    links.forEach(a=>a.classList.remove('active'));
+    link.classList.add('active'); setPill(link);
+  });
+},{rootMargin:'-38% 0px -55% 0px'});
+sections.forEach(s=>s&&spyIO.observe(s));
+addEventListener('load',()=>setPill($('a.active',nav)));
+
+/* ---------- 4. buttery anchor scrolling ---------- */
+const easeOut=t=>1-Math.pow(1-t,5);
+function glideTo(targetY){
+  if(reduced){scrollTo(0,targetY);return;}
+  const startY=scrollY, dist=targetY-startY;
+  const dur=clamp(Math.abs(dist)*.45,500,1150); let t0=null;
+  function step(ts){ if(!t0)t0=ts; const p=clamp((ts-t0)/dur,0,1);
+    scrollTo(0,startY+dist*easeOut(p)); if(p<1)requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+}
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const id=a.getAttribute('href'); const el=id.length>1&&$(id); if(!el)return;
+  e.preventDefault(); document.body.classList.remove('menu-open'); $('#burger').setAttribute('aria-expanded','false');
+  glideTo(el.getBoundingClientRect().top+scrollY-(innerWidth<=920?58:0));
+  history.replaceState(null,'',id);
+}));
+
+/* ---------- 5. unified scroll work (rAF-throttled) ---------- */
+const progress=$('#progress'), totop=$('#totop'), heroInner=$('#heroInner'), hero=$('#hero');
+const timelines=$$('[data-timeline]');
+let ticking=false;
+function onScroll(){
+  if(ticking) return; ticking=true;
+  requestAnimationFrame(()=>{
+    ticking=false; trackDir();
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const p=max>0?scrollY/max:0;
+    progress.style.transform=`scaleX(${p})`;
+    trackFill.style.setProperty('--np',p.toFixed(4));
+    trackFill.style.transform=`scaleY(${p})`;
+    totop.classList.toggle('show',scrollY>650);
+    if(!reduced&&scrollY<innerHeight){
+      heroInner.style.transform=`translateY(${scrollY*.18}px)`;
+      heroInner.style.opacity=clamp(1-scrollY/(innerHeight*.85),0,1);
+    }
+    timelines.forEach(tl=>{
+      const r=tl.getBoundingClientRect();
+      const tp=clamp((innerHeight*.78-r.top)/r.height,0,1);
+      $('.grow',tl).style.transform=`scaleY(${tp})`;
+    });
+  });
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+totop.addEventListener('click',()=>glideTo(0));
+
+/* ---------- 6. typed focus line ---------- */
+const PHRASES=['Remote Sensing','Machine Learning','Deep Learning','Change Detection','Environmental Analysis','GANs','Transformers','Hyperspectral & SIF'];
+(function typed(){
+  const el=$('#typed'); if(!el)return;
+  if(reduced){el.textContent=PHRASES[0];return;}
+  let pi=0,ci=0,del=false;
+  (function tick(){
+    const w=PHRASES[pi%PHRASES.length]||'';
+    el.textContent=w.slice(0,ci);
+    let wait=del?34:62+Math.random()*70;          // human-ish keystroke jitter
+    if(!del&&ci===w.length){del=true;wait=1900;}
+    else if(del&&ci===0){del=false;pi=(pi+1)%PHRASES.length;wait=420;}
+    else ci+=del?-1:1;
+    setTimeout(tick,wait);
+  })();
+})();
+
+/* ---------- 7. counters ---------- */
+const cntIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return; cntIO.unobserve(e.target);
+  const el=e.target, end=parseFloat(el.dataset.count), dec=+(el.dataset.dec||0);
+  if(reduced){el.textContent=end.toFixed(dec);return;}
+  const dur=1500; let t0=null;
+  (function run(ts){ if(!t0)t0=ts; const p=clamp((ts-t0)/dur,0,1);
+    el.textContent=(end*easeOut(p)).toFixed(dec);
+    if(p<1)requestAnimationFrame(run); })(performance.now());
+}),{threshold:.6});
+$$('[data-count]').forEach(el=>cntIO.observe(el));
+
+/* ---------- 8. magnetic buttons + photo tilt ---------- */
+if(!reduced&&matchMedia('(pointer:fine)').matches){
+  $$('.magnet').forEach(b=>{
+    b.addEventListener('mousemove',e=>{
+      const r=b.getBoundingClientRect();
+      b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.3}px)`;
+    });
+    b.addEventListener('mouseleave',()=>b.style.transform='');
+  });
+  const tilt=$('#tilt');
+  if(tilt){
+    tilt.addEventListener('mousemove',e=>{
+      const r=tilt.getBoundingClientRect();
+      tilt.style.setProperty('--ty',((e.clientX-r.left)/r.width-.5)*10+'deg');
+      tilt.style.setProperty('--tx',(.5-(e.clientY-r.top)/r.height)*8+'deg');
+    });
+    tilt.addEventListener('mouseleave',()=>{tilt.style.setProperty('--tx','0deg');tilt.style.setProperty('--ty','0deg');});
+  }
+}
+
+/* ---------- 9. BLOG / NEWS — live from backend API ---------- */
+const ART={
+  publication:'linear-gradient(125deg,#123A46,#0E5246)',
+  research:'linear-gradient(125deg,#11294B,#1C4470)',
+  news:'linear-gradient(125deg,#3B2A10,#6B4A16)'
+};
+const POSTS_FALLBACK=[
+ {cat:'publication',featured:true,date:'2026-06-02',band:'JAG · vol.2026',
+  title:'New paper — constrained harmonization of optical satellite imagery',
+  excerpt:'Our latest article removes surface-reflectance bias across sensors with a constrained harmonization scheme — closing a loop that began with my Ph.D. work on radiometric normalization with Prof. Chao-Hung Lin.'},
+ {cat:'news',date:'2025-08-20',band:'GeoIcon · Surabaya',
+  title:'Presenting at GeoIcon 2025, Indonesia',
+  excerpt:'Back on home ground for the Geomatics International Conference — talking cross-sensor calibration and what Indonesian EO archives need next.'},
+ {cat:'research',date:'2025-07-04',band:'SWIR-2 · 2.0–2.5 µm',
+  title:'Why fresh-leaf SWIR-2 spectra are so hard to measure in the humid tropics',
+  excerpt:'Water vapor swamps the 2001–2500 nm window. Field notes on reconstructing the missing region by leaning on public green-leaf spectral libraries.'},
+ {cat:'research',date:'2025-06-12',band:'SPECTRA × DL',
+  title:'Teaching deep networks to taste tea',
+  excerpt:'How we estimated flavor-related chemistry in fresh tea shoots from spectroscopy alone — and what it suggests for non-destructive crop quality sensing.'},
+ {cat:'news',date:'2024-03-01',band:'BRIN · Geoinformatics',
+  title:'New chapter — Associate Researcher at BRIN',
+  excerpt:'Joining the Research Center for Geoinformatics in Bandung after the postdoc years at National Taiwan University.'},
+ {cat:'research',date:'2024-05-30',band:'PIF · MAD',
+  title:'A field guide to pseudoinvariant features',
+  excerpt:'Stable pixels are the quiet heroes of cross-sensor calibration. Notes from the normalization series, with MAD selection tricks that survive review.'}
+];
+const fmt=d=>new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+const CAT={news:'NEWS',research:'RESEARCH NOTE',publication:'PUBLICATION'};
+let _currentFilter='all';
+let _postsLimit=0; /* 0 = show all; set from admin Site → Blog */
+function renderPosts(list,filter='all'){
+  const box=$('#posts');
+  let filtered=list.filter(p=>filter==='all'||p.cat===filter);
+  if(_postsLimit>0)filtered=filtered.slice(0,_postsLimit);
+  if(!filtered.length){box.innerHTML='<p style="color:var(--muted);font-size:.9rem;padding:20px 0">No posts found.</p>';return;}
+  box.innerHTML=filtered.map((p,i)=>{
+    /* any raster format (jpg/jpeg/png/gif/webp/svg/avif…) renders as the card photo;
+       .pdf cannot be a thumbnail — card keeps the category art, the post page embeds the document */
+    const isPdf=p.image&&/\.pdf([?#]|$)/i.test(p.image);
+    const artStyle=p.image&&!isPdf
+      ?`background:linear-gradient(rgba(10,20,34,.15),rgba(10,20,34,.5)),url('${encodeURI(fixImgURL(p.image)).replace(/'/g,'%27')}') center/cover no-repeat`
+      :`--art:${ART[p.cat]||ART.news}`;
+    return `
+    <article class="post ${p.featured&&filter==='all'?'featured':''}" data-reveal data-cat="${p.cat}" style="--d:${i*.07}s" tabindex="0" role="button" aria-label="${p.title}">
+      <div class="art" data-band="${p.band||''}" style="${artStyle}"><span class="sweep"></span></div>
+      <div class="body">
+        <div class="meta"><span class="cat">${CAT[p.cat]||p.cat}</span><span>${fmt(p.date)}</span></div>
+        <h3>${p.title}</h3><p>${p.excerpt}</p>
+        ${p.id?`<a class="more" href="post.html?id=${esc(p.id)}">Read post <i>→</i></a>`:p.link?`<a class="more" href="${p.link}" target="_blank" rel="noopener">Read post <i>→</i></a>`:'<span class="more">Read post <i>→</i></span>'}
+      </div>
+    </article>`;}).join('');
+  observeReveals(box);
+  if(reduced) $$('[data-reveal]',box).forEach(el=>el.classList.add('in'));
+}
+let _allPosts=[];
+async function loadPosts(){
+  try{
+    const r=await fetch(API_BASE+'/api/posts');
+    if(!r.ok) throw new Error('API error');
+    const j=await r.json();
+    _allPosts=j.posts||[];
+  }catch(_){
+    _allPosts=POSTS_FALLBACK;
+  }
+  renderPosts(_allPosts,_currentFilter);
+}
+loadPosts();
+$$('.chip').forEach(ch=>ch.addEventListener('click',()=>{
+  $$('.chip').forEach(c=>c.classList.remove('active')); ch.classList.add('active');
+  _currentFilter=ch.dataset.filter;
+  renderPosts(_allPosts,_currentFilter);
+}));
+
+/* ---------- 9b. SITE CONTENT — rendered live from /api/site ----------
+   The HTML above stays as a complete built-in fallback: if the backend
+   is unreachable, the page still renders fully. When /api/site responds,
+   every editable section below is re-rendered from the database.       */
+function applySite(s){
+  try{
+    /* theme — must run first: photo overlay color depends on it */
+    applyTheme(s.theme||'dark');
+
+    /* homepage post limit */
+    _postsLimit=Math.max(0,parseInt(s.postsLimit,10)||0);
+    if(_allPosts.length)renderPosts(_allPosts,_currentFilter);
+
+    /* sidebar / profile */
+    if(s.profile){
+      if(s.profile.name)$('.profile h1 a').textContent=s.profile.name;
+      if(s.profile.role)$('.profile .role').textContent=s.profile.role;
+      if(s.profile.avatar)$('.avatar-ring img').src=fixImgURL(s.profile.avatar);
+      if(s.profile.cv){
+        $('.cv-btn').href=s.profile.cv;
+        const hc=$$('.hero-cta a');if(hc[2])hc[2].href=s.profile.cv;
+      }
+    }
+    if(Array.isArray(s.socials)&&s.socials.length)
+      $('.socials').innerHTML=s.socials.map(x=>`<a href="${esc(x.url)}" title="${esc(x.label)}" target="_blank" rel="noopener">${x.icon?`<i class="${esc(x.icon)}"></i>`:esc(x.label)}</a>`).join('');
+
+    /* hero */
+    if(s.hero){
+      if(s.hero.line1)$('#hero h1').innerHTML=`${esc(s.hero.line1)}<br><span class="ghost">${esc(s.hero.line2||'')}</span>`;
+      if(s.hero.degree)$('.degree').textContent=s.hero.degree;
+      if(Array.isArray(s.hero.coords)&&s.hero.coords.length)
+        $('.coords').innerHTML=s.hero.coords.map(c=>`<span>${c}</span>`).join('');
+      if(Array.isArray(s.hero.phrases)&&s.hero.phrases.length){PHRASES.length=0;PHRASES.push(...s.hero.phrases);}
+      if(Array.isArray(s.hero.stats)&&s.hero.stats.length){
+        $('.hero-meta').innerHTML=s.hero.stats.map(st=>`<div class="m"><div class="n"><span data-count="${esc(st.value)}">0</span>${st.suffix?`<em>${esc(st.suffix)}</em>`:''}</div><div class="l">${esc(st.label)}</div></div>`).join('');
+        $$('.hero-meta [data-count]').forEach(el=>cntIO.observe(el));
+      }
+      const bg=s.hero.background||{};
+      bgMode=bg.mode||'animation';
+      /* The photo lives on its own absolutely-positioned full-bleed layer
+         (identical geometry to the canvas: inset 0). Painting the section
+         background shorthand proved unreliable on mobile browsers. */
+      let ph=$('#heroPhoto');
+      if((bgMode==='image'||bgMode==='both')&&bg.image){
+        if(!ph){ph=document.createElement('div');ph.id='heroPhoto';hero.prepend(ph);}
+        const ov=bg.overlay==null||bg.overlay===''?0.72:+bg.overlay;
+        const oc=themeLight?'242,246,250':'10,20,34';
+        ph.style.backgroundImage=`linear-gradient(rgba(${oc},${ov}),rgba(${oc},${Math.min(1,ov+.18)})),url('${fixImgURL(bg.image)}')`;
+        ph.style.display='block';
+      }else if(ph){
+        ph.style.display='none';
+      }
+      cv.style.display=bgMode==='image'?'none':'';
+    }
+
+    /* about */
+    if(s.about){
+      if(s.about.photo)$('.about-photo .frame img').src=fixImgURL(s.about.photo);
+      if(s.about.brinLink)$('.brin-link').href=s.about.brinLink;
+      if(s.about.brinLabel)$('.brin-link').textContent=s.about.brinLabel;
+      $('.about-copy').innerHTML=
+        `<h3>${esc(s.about.heading||'')}</h3>`
+        +(s.about.paragraphs||[]).map(p=>`<p>${p}</p>`).join('')
+        +`<div class="fact-row">${(s.about.facts||[]).map(f=>
+          `<div class="f"><span class="k">${esc(f.k)}</span>${f.link
+            ?`<a href="${esc(f.link)}"${/^http/i.test(f.link)?' target="_blank" rel="noopener"':''}>${esc(f.v)}</a>`
+            :`<span class="v">${esc(f.v)}</span>`}</div>`).join('')}</div>`;
+    }
+
+    /* QR code under BRIN profile link — custom image, or auto-generated from target URL */
+    const oldQ=$('#qrBox');if(oldQ)oldQ.remove();
+    if(s.qr&&s.qr.enabled&&(s.qr.image||s.qr.data)){
+      const src=s.qr.image
+        ?fixImgURL(s.qr.image)
+        :`https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=${encodeURIComponent(s.qr.data)}`;
+      const href=s.about?.brinLink||s.qr.data||'#';
+      const q=document.createElement('div');q.id='qrBox';q.className='qr-box';
+      q.innerHTML=`<a href="${esc(href)}" target="_blank" rel="noopener" aria-label="Open ${esc(s.qr.label||'QR link')}"><img alt="QR code" loading="lazy" src="${esc(src)}" onerror="this.closest('.qr-box').style.display='none'"></a><div class="cap">${esc(s.qr.label||s.qr.data||'')}</div>`;
+      $('.about-photo').appendChild(q);
+    }
+
+    /* skills */
+    if(Array.isArray(s.skills)&&s.skills.length){
+      $('.skill-grid').innerHTML=s.skills.map((sk,i)=>
+        `<div class="skill-card" data-reveal data-watch style="--w:${+sk.width||.8};--d:${(i*.04).toFixed(2)}s"><h3><span class="idx">${esc(sk.idx)}</span>${esc(sk.title)}</h3><p>${sk.desc||''}</p><div class="tags">${(sk.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('')}</div><div class="meter"><i></i></div></div>`).join('');
+      observeReveals($('.skill-grid'));
+    }
+
+    /* resume timelines */
+    const tls=$$('[data-timeline]');
+    const tlHTML=items=>'<div class="grow" aria-hidden="true"></div>'+items.map((it,i)=>
+      `<div class="titem" data-reveal data-watch style="--d:${(i*.06).toFixed(2)}s"><h4>${esc(it.title)}</h4><span class="when">${esc(it.when)}</span><div class="where">${esc(it.where)}</div>${it.gpa?`<span class="gpa">${esc(it.gpa)}</span>`:''}</div>`).join('');
+    if(tls[0]&&Array.isArray(s.education)&&s.education.length){tls[0].innerHTML=tlHTML(s.education);observeReveals(tls[0]);}
+    if(tls[1]&&Array.isArray(s.experience)&&s.experience.length){tls[1].innerHTML=tlHTML(s.experience);observeReveals(tls[1]);}
+
+    /* research */
+    if(s.research){
+      if(Array.isArray(s.research.counters)&&s.research.counters.length){
+        $('.counters').innerHTML=s.research.counters.map(c=>
+          `<div class="c"><div class="n">${c.prefix?esc(c.prefix)+' ':''}${c.prefix?'<em>':''}<span data-count="${esc(c.value)}"${c.dec?` data-dec="${esc(c.dec)}"`:''}>0</span>${c.prefix?'</em>':''}</div><div class="l">${esc(c.label)}</div></div>`).join('');
+        $$('.counters [data-count]').forEach(el=>cntIO.observe(el));
+      }
+      if(Array.isArray(s.research.pubs)&&s.research.pubs.length){
+        const pe=$('.pubs');
+        pe.innerHTML=s.research.pubs.map(p=>
+          `<article class="pub" data-reveal data-watch><div><div class="venue">${esc(p.venue)}</div><h3>${p.link?`<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>`:esc(p.title)}</h3><div class="authors">${p.authors||''}</div></div><span class="if">${esc(p.impact||'—')}</span></article>`).join('');
+        pe.style.counterReset='pub '+(s.research.pubs.length+1);
+        observeReveals(pe);
+      }
+      const cols=$$('.list-cols > div');
+      if(cols[0]&&Array.isArray(s.research.reviewers))$('ul',cols[0]).innerHTML=s.research.reviewers.map(r=>`<li>${esc(r)}</li>`).join('');
+      if(cols[1]&&Array.isArray(s.research.conferences)){
+        const cu=$('ul',cols[1]);
+        cu.innerHTML=s.research.conferences.map(r=>`<li>${esc(r)}</li>`).join('');
+        cu.style.counterReset='conf '+(s.research.conferences.length+1);
+      }
+    }
+
+    /* awards */
+    if(Array.isArray(s.awards)&&s.awards.length){
+      $('.awards').innerHTML=s.awards.map((a,i)=>
+        `<div class="award" data-reveal style="--d:${(i*.05).toFixed(2)}s"><span class="yr">${esc(a.yr)}</span><p>${esc(a.text)}</p></div>`).join('');
+      observeReveals($('.awards'));
+    }
+
+    /* contact */
+    if(s.contact){
+      const c=s.contact,cvUrl=s.profile?.cv||'#';
+      $('.contact-card').innerHTML=
+        `<div class="crow"><span class="k">Base</span><span class="v">${esc(c.base)}</span></div>`
+        +`<div class="crow"><span class="k">Mail 1</span><a href="mailto:${esc(c.mail1)}">${esc(c.mail1)}</a></div>`
+        +`<div class="crow"><span class="k">Mail 2</span><a href="mailto:${esc(c.mail2)}">${esc(c.mail2)}</a></div>`
+        +`<div class="crow"><span class="k">Site</span><a href="${esc(c.siteUrl||'#')}" target="_blank" rel="noopener">${esc(c.site)}</a></div>`
+        +`<div class="crow"><span class="k">CV</span><a href="${esc(cvUrl)}" target="_blank" rel="noopener">Download PDF ⤓</a></div>`;
+      if(c.mapEmbed)$('.map iframe').src=c.mapEmbed;
+    }
+  }catch(err){console.warn('applySite:',err);}
+}
+(async()=>{
+  try{
+    const r=await fetch(API_BASE+'/api/site');
+    if(!r.ok)return;
+    const j=await r.json();
+    if(j&&j.site)applySite(j.site);
+  }catch(_){/* backend offline — built-in fallback content stays visible */}
+})();
+
+/* ---------- page-view beacon → admin Telemetry ----------
+   No Content-Type header on purpose: keeps it a "simple request"
+   (no CORS preflight) so it also works from the GitHub Pages copy. */
+try{
+  fetch(API_BASE+'/api/track',{
+    method:'POST',keepalive:true,
+    body:JSON.stringify({path:location.pathname,ref:document.referrer||''})
+  }).catch(()=>{});
+}catch(_){}
+
+/* toast */
+const tEl=document.createElement('div');
+tEl.style.cssText='position:fixed;left:50%;bottom:34px;transform:translate(-50%,18px);background:#102034;border:1px solid rgba(91,227,199,.45);color:#E9F1F9;padding:12px 20px;border-radius:12px;font:500 .82rem "IBM Plex Mono",monospace;z-index:300;opacity:0;transition:all .45s cubic-bezier(.22,1,.36,1);pointer-events:none;max-width:90vw;text-align:center';
+document.body.appendChild(tEl); let tTimer;
+function toast(msg){ tEl.textContent=msg; tEl.style.opacity=1; tEl.style.transform='translate(-50%,0)';
+  clearTimeout(tTimer); tTimer=setTimeout(()=>{tEl.style.opacity=0;tEl.style.transform='translate(-50%,18px)';},2600); }
+
+/* ---------- 10. mobile menu ---------- */
+$('#burger').addEventListener('click',()=>{
+  const open=document.body.classList.toggle('menu-open');
+  $('#burger').setAttribute('aria-expanded',open);
+});
+
+/* ---------- 11. HERO canvas — graticule · orbits · pushbroom scan ---------- */
+const cv=$('#orbits'), ctx=cv.getContext('2d');
+let W=0,H=0,heroOn=true,mx=.5,my=.5,smx=.5,smy=.5,avDeg=0;
+const SPEC=['#53E0C4','#8BE38B','#F7B955','#F0699B'];
+const cells=[]; const GRID=92;
+function resize(){ const d=Math.min(devicePixelRatio||1,2);
+  W=hero.clientWidth; H=hero.clientHeight; cv.width=W*d; cv.height=H*d;
+  ctx.setTransform(d,0,0,d,0,0); }
+/* The canvas ELEMENT stays full-bleed purely via CSS (inset:0, 100%/100%);
+   resize() only updates the drawing buffer. Never pin inline pixel sizes —
+   a stale early-load measurement on mobile froze the canvas at partial width. */
+resize(); addEventListener('resize',resize);
+if(window.ResizeObserver)new ResizeObserver(resize).observe(hero);
+new IntersectionObserver(es=>heroOn=es[0].isIntersecting,{threshold:.02}).observe(hero);
+if(matchMedia('(pointer:fine)').matches)
+  hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect();mx=(e.clientX-r.left)/W;my=(e.clientY-r.top)/H;});
+
+function spectral(t){ // sample the spectral ramp 0..1
+  const seg=clamp(t,0,.999)*(SPEC.length-1), i=Math.floor(seg);
+  return SPEC[i]; }
+
+function frame(t){
+  requestAnimationFrame(frame);
+  if(reduced||document.hidden||!heroOn||bgMode==='image') return;
+  avDeg=(avDeg+.22)%360;
+  document.documentElement.style.setProperty('--av',avDeg+'deg');
+  smx+=(mx-smx)*.04; smy+=(my-smy)*.04;
+  ctx.clearRect(0,0,W,H);
+  const gl=themeLight?'60,90,120':'150,184,219';
+  const ga=themeLight?[.13,.065]:[.075,.038];
+
+  /* graticule — slow westward drift + gentle mouse parallax */
+  const ox=(t*.0065+smx*22)%GRID, oy=(t*.0028+smy*16)%GRID;
+  ctx.lineWidth=1;
+  for(let x=-ox;x<W;x+=GRID){
+    ctx.strokeStyle=`rgba(${gl},${Math.round((x+ox)/GRID)%4===0?ga[0]:ga[1]})`;
+    ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
+  }
+  for(let y=-oy;y<H;y+=GRID){
+    ctx.strokeStyle=`rgba(${gl},${Math.round((y+oy)/GRID)%4===0?ga[0]:ga[1]})`;
+    ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
+  }
+
+  /* two orbital tracks + satellites with trails */
+  const orbits=[
+    {cx:W*.72,cy:H*.34,rx:W*.36,ry:H*.30,rot:-.32,sp:.00022,ph:0},
+    {cx:W*.60,cy:H*.55,rx:W*.46,ry:H*.16,rot:.38,sp:-.00015,ph:2.1}
+  ];
+  orbits.forEach(o=>{
+    ctx.save();ctx.translate(o.cx,o.cy);ctx.rotate(o.rot);
+    ctx.strokeStyle=`rgba(${gl},${themeLight?.22:.12})`;ctx.setLineDash([2,7]);
+    ctx.beginPath();ctx.ellipse(0,0,o.rx,o.ry,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    const a=t*o.sp+o.ph;
+    for(let k=10;k>=0;k--){ // trail
+      const aa=a-k*.05, x=Math.cos(aa)*o.rx, y=Math.sin(aa)*o.ry;
+      ctx.fillStyle=k?`rgba(91,227,199,${.32*(1-k/11)})`:'#5BE3C7';
+      ctx.beginPath();ctx.arc(x,y,k?1.6:3,0,Math.PI*2);ctx.fill();
+      if(!k){ctx.shadowColor='#5BE3C7';ctx.shadowBlur=14;ctx.fill();ctx.shadowBlur=0;}
+    }
+    ctx.restore();
+  });
+
+  /* pushbroom scanline — sweeps, leaves a fading spectral wake */
+  const phase=(t%12000)/12000, sx=phase*(W*1.3)-W*.15;
+  const wake=ctx.createLinearGradient(sx-170,0,sx,0);
+  wake.addColorStop(0,'rgba(91,227,199,0)');
+  wake.addColorStop(1,'rgba(91,227,199,.07)');
+  ctx.fillStyle=wake; ctx.fillRect(sx-170,0,170,H);
+  const beam=ctx.createLinearGradient(0,0,0,H);
+  beam.addColorStop(0,'rgba(83,224,196,.0)');beam.addColorStop(.3,'rgba(83,224,196,.55)');
+  beam.addColorStop(.7,'rgba(247,185,85,.45)');beam.addColorStop(1,'rgba(240,105,155,0)');
+  ctx.fillStyle=beam; ctx.fillRect(sx,0,1.6,H);
+
+  /* ground pixels ignite as the scanner passes */
+  if(Math.random()<.5&&sx>0&&sx<W){
+    cells.push({x:Math.floor(sx/GRID)*GRID-ox+GRID*Math.round(Math.random()),
+                y:Math.floor(Math.random()*(H/GRID))*GRID-oy,
+                c:spectral(Math.random()),life:1});
+    if(cells.length>120)cells.shift();
+  }
+  cells.forEach(c=>{
+    c.life-=.008; if(c.life<=0)return;
+    ctx.globalAlpha=c.life*.16; ctx.fillStyle=c.c;
+    ctx.fillRect(c.x+1,c.y+1,GRID-2,GRID-2); ctx.globalAlpha=1;
+  });
+  for(let i=cells.length-1;i>=0;i--) if(cells[i].life<=0)cells.splice(i,1);
+}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

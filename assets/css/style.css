@@ -302,9 +302,46 @@ h1, h2, h3, h4, h5, h6 {
 }
 #hero p {
   color: #fff;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   font-size: 26px;
   font-family: "Poppins", sans-serif;
+}
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+  flex-wrap: nowrap;
+}
+.hero-btn {
+  display: inline-block;
+  color: #fff !important;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  padding: 10px 30px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.5px;
+  text-decoration: none !important;
+  white-space: nowrap;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+.hero-btn:hover {
+  background: #149ddd;
+  border-color: #149ddd;
+  color: #fff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(20, 157, 221, 0.45);
+}
+.hero-btn-fill {
+  background: #149ddd;
+  border-color: #149ddd;
+}
+.hero-btn-fill:hover {
+  background: #0d87c0;
+  border-color: #0d87c0;
 }
 #hero p span {
   color: #fff;
