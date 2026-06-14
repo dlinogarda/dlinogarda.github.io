@@ -277,6 +277,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 100vh;
   background: url("../img/IMG_4545.JPG") top center;
   background-size: cover;
+  position: relative;
 }
 #hero:before {
   content: "";
@@ -310,11 +311,17 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
 .hero-btns {
+  position: absolute;
+  bottom: 12vh;
+  left: 0;
+  right: 0;
+  z-index: 2;
   display: flex;
   gap: 16px;
   justify-content: center;
-  margin-top: 24px;
   flex-wrap: nowrap;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 .hero-btn {
   display: inline-block;
@@ -373,6 +380,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 16px;
   }
   .hero-btns {
+    bottom: 10vh;
     flex-wrap: wrap;
     gap: 12px;
   }
@@ -393,6 +401,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 14px;
   }
   .hero-btns {
+    bottom: 8vh;
     flex-direction: column;
     align-items: center;
     gap: 10px;
